@@ -1,0 +1,32 @@
+digraph Tree {
+node [shape=box] ;
+0 [label="eqpdays <= 304.5\ngini = 0.5\nsamples = 31891\nvalue = [16036, 15855]"] ;
+1 [label="months <= 10.5\ngini = 0.478\nsamples = 12996\nvalue = [7870, 5126]"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="revenue <= 135.755\ngini = 0.435\nsamples = 5505\nvalue = [3742, 1763]"] ;
+1 -> 2 ;
+3 [label="gini = 0.428\nsamples = 5187\nvalue = [3576, 1611]"] ;
+2 -> 3 ;
+4 [label="gini = 0.499\nsamples = 318\nvalue = [166, 152]"] ;
+2 -> 4 ;
+5 [label="months <= 14.5\ngini = 0.495\nsamples = 7491\nvalue = [4128, 3363]"] ;
+1 -> 5 ;
+6 [label="gini = 0.487\nsamples = 2030\nvalue = [854, 1176]"] ;
+5 -> 6 ;
+7 [label="gini = 0.48\nsamples = 5461\nvalue = [3274, 2187]"] ;
+5 -> 7 ;
+8 [label="months <= 12.5\ngini = 0.491\nsamples = 18895\nvalue = [8166, 10729]"] ;
+0 -> 8 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+9 [label="eqpdays <= 318.5\ngini = 0.458\nsamples = 3732\nvalue = [1326, 2406]"] ;
+8 -> 9 ;
+10 [label="gini = 0.484\nsamples = 952\nvalue = [391, 561]"] ;
+9 -> 10 ;
+11 [label="gini = 0.446\nsamples = 2780\nvalue = [935, 1845]"] ;
+9 -> 11 ;
+12 [label="retcalls <= 0.5\ngini = 0.495\nsamples = 15163\nvalue = [6840, 8323]"] ;
+8 -> 12 ;
+13 [label="gini = 0.496\nsamples = 14544\nvalue = [6658, 7886]"] ;
+12 -> 13 ;
+14 [label="gini = 0.415\nsamples = 619\nvalue = [182, 437]"] ;
+12 -> 14 ;
+}
