@@ -20,6 +20,6 @@ Prof. Foster Provost - NYU Stern School of Business [Website](http://people.ster
 PhD Candidate Nicholas Garcia [Contact](https://www.linkedin.com/in/nickmacgregorgarcia/)
 
 
-Initial forks from:
+Prior forks from:
 * MSDS Maria Leonor Zamora Maass [Contact](https://www.linkedin.com/in/marialzamora/)
 * Rob Moakler, NYU Stern Ph.D. [Github link](https://github.com/rmoakler/learning-data-science/tree/master/Fall%202015)
