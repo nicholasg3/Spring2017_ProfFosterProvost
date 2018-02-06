@@ -79,15 +79,16 @@ def create_data(n_informative=2):
     target_name = "success"
 
     # Generate data (3 random normal distributions!!!!)
-    a = np.random.normal(5, 5, n_users )
-    b = np.random.normal(25, 8, n_users )
-    c = np.random.normal(35, 8, n_users )
-    d = np.random.normal(6, 5, n_users )
+    a = np.random.normal(5, 10, n_users )
+    b = np.random.normal(25, 18, n_users )
+    c = np.random.normal(35, 15, n_users )
+    d = np.random.normal(6, 10, n_users )
 
     # Change scales
-    x1 = list(a+10) + list(a+10) + list(b+10) + list(a+30)+ list(d+10)+ list(a+10)
-    x2 = list((d+10)/10) + list((b+30)/10) + list((c+10)/10) + list((d+10)/10)+ list((c+10)/10)+ list((c+10)/10)
-    target = list(np.ones(len(b))) + list(np.ones(len(b))) + list(np.zeros(len(b)))+ list(np.ones(len(b)))+ list(np.zeros(len(b)))+ list(np.zeros(len(b)))
+    x2 = list(a+10) + list(a+10) + list(b+10) + list(a+30)+ list(d+10)+ list(a+10)
+    x1 = list((d+10)/10) + list((b+60)/10) + list((c+10)/10) + list((d+10)/10)+ list((c+10)/10)+ list((c+10)/10)
+
+    target = list(np.zeros(len(b))) + list(np.ones(len(b))) + list(np.zeros(len(b)))+ list(np.ones(len(b)))+ list(np.zeros(len(b)))+ list(np.zeros(len(b)))
 
     #predictors, target = datasets.make_classification(n_features=2, n_redundant=0, 
     #                                              n_informative=n_informative, n_clusters_per_class=2,
@@ -102,9 +103,7 @@ def create_data(n_informative=2):
     data['humor^4'] = np.power(data['humor'], 4)
     data['humor^5'] = np.power(data['humor'], 5)
     data['humor^6'] = np.power(data['humor'], 6)
-    data['humor^7'] = np.power(data['humor'], 7)
-    data['humor^8'] = np.power(data['humor'], 8)
-    data['humor^9'] = np.power(data['humor'], 9)
+
 
     data[target_name] = target
     Y = data[target_name]
@@ -124,7 +123,7 @@ def X(complexity=1):#, data = None):
     drops = ["success"]
     
     # if complexity = 1 then we just need to drop all the higher order from the dataframe
-    for i in [2, 3, 4,5,6,7,8,9]:
+    for i in [2, 3, 4,5,6]:
         # based on the number of complexity required, we drop the rest of the higher orders
         if i > complexity:
             drops.append("humor^" + str(i))
