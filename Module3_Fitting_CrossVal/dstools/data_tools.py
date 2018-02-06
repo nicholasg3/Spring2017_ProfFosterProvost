@@ -3,7 +3,7 @@ from sklearn import datasets
 import pandas as pd
 import matplotlib.pylab as plt
 
-def Decision_Surface(data, target, model, surface=True, probabilities=False, cell_size=.01):
+def Decision_Surface(data, target, model=None, surface=True, probabilities=True, cell_size=.01):
     '''
     This function creates the surface of a decision tree using the data created with this script. 
     You can change this function tu plot any column of any dataframe. 
@@ -14,7 +14,6 @@ def Decision_Surface(data, target, model, surface=True, probabilities=False, cel
             surface (True if we want to display the tree surface),
             probabilities (False by default, if True we can see the color-scale based on the likelihood of being closer to the separator),
            cell_size (value for the step of the numpy arange that creates the mesh)
-
     RETURNS: Scatterplot with/without the surface
     '''
     # Get bounds, we only have 2 columns in the dataframe: column 0 and column 1 
@@ -40,11 +39,11 @@ def Decision_Surface(data, target, model, surface=True, probabilities=False, cel
             Z = model.predict(meshed_data).reshape(xx.shape)
     
     # Plot mesh and data
-    if data.shape[1] > 2:
+    #if data.shape[1] > 2:
         # Higher orders
-        plt.title("humor^(" + str(range(1,data.shape[1])) + ") and number_pets")
-    else:
-        plt.title("humor and number_pets")
+        #plt.title("humor^(" + str(list(range(1,data.shape[1]))) + ") and number_pets")
+    #else:
+    plt.title("humor and number_pets")
     plt.xlabel("humor")
     plt.ylabel("number_pets")
     if surface and model != None:
@@ -57,21 +56,20 @@ def Decision_Surface(data, target, model, surface=True, probabilities=False, cel
     color = ["blue" if t == 0 else "red" for t in target]
     plt.scatter(data[data.columns[0]], data[data.columns[1]], color=color)
 
-def create_data():
+def create_data(n_informative=2):
     '''
     This function creates a data set with 3 random normal distributions scaled. 
     There are two main variables in this dataset: humor and number_pets.
     It also computes higher orders for the 'humor' variable (^2, ^3 and ^4).
     You can change this function with new orders or column names.
    
-
     RETURNS: target_name (always "success"), 
              variable_names (always ["humor", "number_pets"] ), 
              data  (dataframe with the data WITHOUT higher orders), 
              Y (target variable with values 0 or 1)
     '''
     # Set the randomness
-    np.random.seed(36)
+    np.random.seed(120)
 
     # Number of users
     n_users = 200
@@ -82,39 +80,51 @@ def create_data():
 
     # Generate data (3 random normal distributions!!!!)
     a = np.random.normal(5, 5, n_users )
-    b = np.random.normal(10, 5, n_users )
-    c = np.random.normal(20, 5, n_users )
+    b = np.random.normal(25, 8, n_users )
+    c = np.random.normal(35, 8, n_users )
+    d = np.random.normal(6, 5, n_users )
 
     # Change scales
-    x1 = list(a+10) + list(c+10) + list(b+10)
-    x2 = list((b+10)/10) + list((b+10)/10) + list((c+10)/10)
-    target = list(np.ones(len(b))) + list(np.ones(len(b))) + list(np.zeros(len(b)))
+    x1 = list(a+10) + list(a+10) + list(b+10) + list(a+30)+ list(d+10)+ list(a+10)
+    x2 = list((d+10)/10) + list((b+30)/10) + list((c+10)/10) + list((d+10)/10)+ list((c+10)/10)+ list((c+10)/10)
+    target = list(np.ones(len(b))) + list(np.ones(len(b))) + list(np.zeros(len(b)))+ list(np.ones(len(b)))+ list(np.zeros(len(b)))+ list(np.zeros(len(b)))
 
+    #predictors, target = datasets.make_classification(n_features=2, n_redundant=0, 
+    #                                              n_informative=n_informative, n_clusters_per_class=2,
+     #                                             n_samples=n_users)
+    
     data = pd.DataFrame(np.c_[x1, x2], columns=variable_names)
+    #data = pd.DataFrame(predictors, columns=variable_names)
 
     # Add interactions
     data['humor^2'] = np.power(data['humor'], 2)
     data['humor^3'] = np.power(data['humor'], 3)
     data['humor^4'] = np.power(data['humor'], 4)
+    data['humor^5'] = np.power(data['humor'], 5)
+    data['humor^6'] = np.power(data['humor'], 6)
+    data['humor^7'] = np.power(data['humor'], 7)
+    data['humor^8'] = np.power(data['humor'], 8)
+    data['humor^9'] = np.power(data['humor'], 9)
 
     data[target_name] = target
     Y = data[target_name]
     return target_name, variable_names, data, Y
 
-def X(complexity=1):
+def X(complexity=1):#, data = None):
     '''
     This function return the X-data from the 'create_data' function of this script.
     You can change the complexity to receive the main 2 columns + complex orders.
     
     INPUT: complexity (higher complexity (1 to 4) for the 'humor' variable)
-
     RETURNS: data  (dataframe with the data WITH higher orders IF required)
     '''
+    #if data is None:
+        #target_name, variable_names, data, Y = create_data()
     # remove the target variable
     drops = ["success"]
     
     # if complexity = 1 then we just need to drop all the higher order from the dataframe
-    for i in [2, 3, 4]:
+    for i in [2, 3, 4,5,6,7,8,9]:
         # based on the number of complexity required, we drop the rest of the higher orders
         if i > complexity:
             drops.append("humor^" + str(i))
